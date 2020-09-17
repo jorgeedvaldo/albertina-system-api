@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\Models\Cliente;
+use App\Models\Morada;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -65,6 +67,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $IdMorada = Morada::insertGetId([
+            'Provincia' => $data['Provincia'],
+            'Municipio' => $data['Municipio'],
+            'Bairro' => $data['Bairro'],
+            'Rua' => $data['Rua'],
+            'NumeroCasa' => $data['NumeroCasa']
+        ]);
+
+        $IdCliente = Cliente::insertGetId([
+            'Origem'=> 'Remota',
+            'Nome' => $data['name'],
+            'Sexo' => $data['Sexo'],
+            'NumeroBilhete' => $data['NumeroBilhete'],
+            'Telefone1' => $data['Telefone1'],
+            'Telefone2' => $data['Telefone2'],
+            'NomeUsuario' => $data['username'],
+            'Senha'=> Hash::make($data['password']),
+            'IdMorada'=> $IdMorada
+        ]);
+
         return User::create([
             'name' => $data['name'],
             'username' => $data['username'],

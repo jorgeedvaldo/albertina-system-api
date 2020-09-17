@@ -22,6 +22,16 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+
+                                <input id="Sexo" type="text" class="form-control mb-1" name="Sexo" value="">
+                                <input id="NumeroBilhete" type="text" class="form-control mb-1" name="NumeroBilhete" value="">
+                                <input id="Telefone1" type="text" class="form-control mb-1" name="Telefone1" value="">
+                                <input id="Telefone2" type="text" class="form-control mb-1" name="Telefone2" value="">
+                                <input id="Provincia" type="text" class="form-control mb-1" name="Provincia" value="">
+                                <input id="Municipio" type="text" class="form-control mb-1" name="Municipio" value="">
+                                <input id="Bairro" type="text" class="form-control mb-1" name="Bairro" value="">
+                                <input id="Rua" type="text" class="form-control mb-1" name="Rua" value="">
+                                <input id="NumeroCasa" type="text" class="form-control mb-1" name="NumeroCasa" value="">
                             </div>
                         </div>
 
