@@ -10,6 +10,7 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+mix.js('resources/js/app.js', 'public/js');
 mix.scripts([
     'resources/js/jquery.min.js',
     'resources/js/jquery-migrate-3.0.1.min.js',
@@ -27,7 +28,7 @@ mix.scripts([
     'resources/js/scrollax.min.js',
     'resources/js/google/map.js',
     'resources/js/main.js'
-], 'public/js/app.js');
+], 'public/js/all.js');
 mix.styles([
     'resources/css/*.css'
 ], 'public/css/app.css');

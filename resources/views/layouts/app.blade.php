@@ -31,7 +31,7 @@
                     <li class="nav-item"><a href="{{url('/sobre')}}" class="nav-link">Sobre</a></li>
                     <li class="nav-item"><a href="{{url('/produtos')}}" class="nav-link">Produtos</a></li>
                     <li class="nav-item">
-                         <a href="{{url('/carrinho')}}" class="nav-link"><i class="icon-shopping-cart"></i> Pedidos Online</a>
+                         <a href="{{url('/loja')}}" class="nav-link"><i class="icon-shopping-cart"></i> Pedidos Online</a>
                     </li>
                       @guest
                         <li class="nav-item">
@@ -114,6 +114,6 @@
         </footer>
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/all.js') }}"></script>
 </body>
 </html>

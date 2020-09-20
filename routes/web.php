@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/sobre','SobreController@index')->name('sobre');
+Route::get('/loja','LojaController@index')->name('loja');
 
 Auth::routes();
 
