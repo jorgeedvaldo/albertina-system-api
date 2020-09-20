@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/sobre','SobreController@index')->name('sobre');
 
 Auth::routes();
 
