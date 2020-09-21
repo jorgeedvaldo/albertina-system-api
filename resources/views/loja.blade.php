@@ -17,19 +17,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light ftco-navbar-light-2" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="{{url('/')}}">{{ config('app.name', 'Albertina & Filhos') }}</a>
-            <ul class="navbar-nav">
-            <li class="nav-item"><a href="{{url('/')}}" class="nav-link"> <i class="icon-exit"></i> Sair da Loja</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <div id="app">
-        <example-component></example-component>
+        <!--example-component></!--example-component-->
     </div>
-
     <footer class="ftco-footer ftco-bg-dark ftco-section mt-5">
         <div class="container">
             <div class="row mb-5">

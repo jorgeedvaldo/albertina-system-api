@@ -29,7 +29,6 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a href="{{url('/')}}" class="nav-link"><i class="icon-home"></i></a></li>
                     <li class="nav-item"><a href="{{url('/sobre')}}" class="nav-link">Sobre</a></li>
-                    <li class="nav-item"><a href="{{url('/produtos')}}" class="nav-link">Produtos</a></li>
                     <li class="nav-item">
                          <a href="{{url('/loja')}}" class="nav-link"><i class="icon-shopping-cart"></i> Pedidos Online</a>
                     </li>
