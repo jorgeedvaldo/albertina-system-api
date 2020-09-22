@@ -1,16 +1,16 @@
 <template>
   <ul class="listOfProducts">
     <li v-for="(product, index) in products" :key="index" class="product">
-      <img :src="product.image" alt="">
+      <img :src="product.UrlImagem" alt="">
       <router-link to="/product-details">
         <h2 class="product-name"
             @click="addCurrentProduct(product)">
-          {{ product.name }}
+          {{ product.Nome }}
         </h2>
       </router-link>
       <div class="product-price">
-        <span>AOA {{ product.price }}, 00</span>
-        <span>10 x {{ Math.round(product.price / 10) }}, 00 </span>
+        <span>AOA {{ product.Preco }}, 00</span>
+        <span>10 x {{ Math.round(product.Preco / 10) }}, 00 </span>
       </div>
 
       <btn btnColor="btn btn-large btn-sucess"

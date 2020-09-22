@@ -23,6 +23,7 @@ Route::put('/produto/{id}', 'Api\ProdutoController@update');
 Route::delete('/produto/{id}', 'Api\ProdutoController@delete');
 
 Route::get('/clientes', 'Api\ClienteController@get');
+Route::get('/clientes/{NomeUsuario}', 'Api\ClienteController@getByNomeUsuario');
 Route::post('/cliente', 'Api\ClienteController@create');
 Route::put('/cliente/{id}', 'Api\ClienteController@update');
 Route::delete('/cliente/{id}', 'Api\ClienteController@delete');

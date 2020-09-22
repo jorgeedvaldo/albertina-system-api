@@ -1,10 +1,11 @@
 <template>
- <listOfProducts :products="getAllProducts"/>
+ <listOfProducts :products="produtos"/>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import listOfProducts from './ListOfProducts';
+import axios from 'axios';
 
 export default {
   components: {
@@ -14,6 +15,15 @@ export default {
     ...mapGetters([
       'getAllProducts',
     ]),
+  },
+   created () {
+    axios.get('./api/produtos')
+    .then(response => this.produtos = response.data);
+  },
+  data () {
+    return {
+      produtos: []
+    }
   },
 };
 </script>

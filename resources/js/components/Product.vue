@@ -1,12 +1,12 @@
 <template>
   <div class="product-box">
     <div class="product-image">
-      <img :src="currentProduct.image" alt="">
-      <stars :rate="rated(currentProduct.stars)" :totalReviews="currentProduct.totalReviews"/>
+      <img :src="currentProduct.UrlImagem" alt="">
+      <stars :rate="rated(3)" :totalReviews="currentProduct.Stock"/>
     </div>
     <div class="product-info">
-      <h2 class="product-title">{{ currentProduct.name }}</h2>
-      <span class="product-price">AOA {{ currentProduct.price }}, 00</span>
+      <h2 class="product-title">{{ currentProduct.Nome }}</h2>
+      <span class="product-price">AOA {{ currentProduct.Preco }}, 00</span>
       <btn btnColor="btn btn-large btn-sucess" :cartIcon="true"
       @click.native="addProductToCart(currentProduct)">
         Buy Now
@@ -16,7 +16,7 @@
         More Info
       </btn>
     </div>
-    <modal>{{ currentProduct.details }}</modal>
+    <modal>{{ currentProduct.Descricao }}</modal>
   </div>
 </template>
 

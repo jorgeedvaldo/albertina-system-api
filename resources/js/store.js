@@ -1,9 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
+//import axios from 'axios';
 
 Vue.use(Vuex);
-
+const axios = require('axios');
+var a;
+// Make a request for a user with a given ID
+axios.get('./api/produtos')
+  .then(function (response) {
+    // handle success
+    console.log(response.data);
+    a = response.data;
+  });
 export default new Vuex.Store({
   state: {
     notebooks: [
@@ -108,17 +116,16 @@ export default new Vuex.Store({
       },
     ],
 
-    meusProdutos: [
-        {
-            "Id":11,
-            "Nome":"PIZZA MARGERITA",
-            "Preco":2700,
-            "Stock":91,
-            "Estado":"Activo",
-            "Descricao":"Pizza feita com molho, cebola, queijo, fiambre.",
-            "UrlImagem":"11.jpg"
-        },
-    ],
+    meusProdutos: async function(){
+        try {
+            const response = await axios.get('/api/produtos');
+            console.log(response.data);
+            return response.data;
+          } catch (error) {
+            console.error(error);
+            return error;
+          }
+    },
 
     cartProducts: [],
     currentProduct: {},
@@ -129,7 +136,16 @@ export default new Vuex.Store({
   getters: {
     getNotebooks: state => state.notebooks,
     getSmartphones: state => state.smartphones,
-    getAllProducts: state => state.meusProdutos, //state.notebooks.concat(state.smartphones), //axios.get('./api/produtos'),
+    getAllProducts: async function(){
+        try {
+            const response = await axios.get('/api/produtos');
+            console.log(response.data);
+            return response.data;
+          } catch (error) {
+            console.error(error);
+            return error;
+          }
+    },//state => state.meusProdutos(), //state.notebooks.concat(state.smartphones), //axios.get('./api/produtos'),
     getProductsInCart: state => state.cartProducts,
     getCurrentProduct: state => state.currentProduct,
     getShowModal: state => state.showModal,

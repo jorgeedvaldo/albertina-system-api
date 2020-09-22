@@ -12,4 +12,9 @@ class Cliente extends Model
     protected $fillable = [
         'Origem', 'Nome', 'Sexo', 'NumeroBilhete', 'Telefone1', 'Telefone2', 'NomeUsuario', 'Senha', 'IdMorada'
     ];
+
+    public function Morada()
+    {
+        return $this->belongsTo('App\Models\Morada', 'IdMorada', 'Id');
+    }
 }

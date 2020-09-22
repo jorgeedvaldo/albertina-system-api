@@ -22,3 +22,4 @@ Route::get('/loja','LojaController@index')->name('loja');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/edit','EditController@index')->name('edit');
