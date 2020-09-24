@@ -2096,15 +2096,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     remove: function remove(index) {
       this.removeProduct(index);
-    },
-    returnImage: function returnImage(file) {
-      fs.exists(file, function (exists) {
-        if (exists) {
-          return file;
-        } else {
-          return "images/1.jpg";
-        }
-      });
     }
   })
 });
@@ -5002,8 +4993,9 @@ var render = function() {
                 _c("img", {
                   staticClass: "product-image",
                   attrs: {
-                    src: "images/" + product.UrlImagem,
-                    onerror: "this.onerror=null; this.src='images/1.jpg'",
+                    src: "images/Produtos/" + product.UrlImagem,
+                    onerror:
+                      "this.onerror=null; this.src='images/Produtos/product.jpg'",
                     alt: ""
                   }
                 }),
@@ -5089,7 +5081,15 @@ var render = function() {
         "li",
         { key: index, staticClass: "product" },
         [
-          _c("img", { attrs: { src: product.UrlImagem, alt: "" } }),
+          _c("img", {
+            staticClass: "img-thumbnail",
+            attrs: {
+              src: "images/Produtos/" + product.UrlImagem,
+              onerror:
+                "this.onerror=null; this.src='images/Produtos/product.jpg'",
+              alt: ""
+            }
+          }),
           _vm._v(" "),
           _c("router-link", { attrs: { to: "/product-details" } }, [
             _c(
