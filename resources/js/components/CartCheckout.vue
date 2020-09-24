@@ -45,18 +45,6 @@ export default {
     remove(index) {
       this.removeProduct(index);
     },
-    returnImage(file){
-        fs.exists(file, (exists) => {
-            if(exists)
-            {
-                return file;
-            }
-            else
-            {
-                return "images/1.jpg";
-            }
-        });
-    },
   },
 };
 </script>
