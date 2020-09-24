@@ -5001,7 +5001,11 @@ var render = function() {
               [
                 _c("img", {
                   staticClass: "product-image",
-                  attrs: { src: "images/" + product.UrlImagem, alt: "" }
+                  attrs: {
+                    src: "images/" + product.UrlImagem,
+                    onerror: "this.onerror=null; this.src='images/1.jpg'",
+                    alt: ""
+                  }
                 }),
                 _vm._v(" "),
                 _c("h3", { staticClass: "product-name" }, [
