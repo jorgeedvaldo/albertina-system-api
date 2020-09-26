@@ -14,12 +14,17 @@
 </section>
 
 <div class="container">
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('edit-save') }}">
         @csrf
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h1>Editar meus dados</h1>
         </div>
+        @if(isset($isSaved))
+            <div class="col-md-8">
+                <div class="alert alert-success mt-3 mb-3">Dados alterados com sucesso.</div>
+            </div>
+        @endif
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Dados Pessoais</div>

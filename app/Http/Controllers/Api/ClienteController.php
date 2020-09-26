@@ -52,7 +52,6 @@ class ClienteController extends Controller
             'NumeroBilhete' => $request->NumeroBilhete,
             'Telefone1' => $request->Telefone1,
             'Telefone2' => $request->Telefone2,
-            'NomeUsuario' => $request->NomeUsuario,
             'Senha' => $request->Senha
             ]);
         echo Cliente::find($id);
