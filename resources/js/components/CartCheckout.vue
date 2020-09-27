@@ -1,4 +1,5 @@
 <template>
+<div class="container">
   <div class="checkout-box">
     <ul class="checkout-list">
       <transition-group name="fade">
@@ -10,6 +11,13 @@
       </li>
       </transition-group>
     </ul>
+    <div class="form-group row justify-content-center mt-3" v-if="hasProduct()">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary btn-block btn-bg" @click="encomendar()">
+                Confirmar
+            </button>
+        </div>
+    </div>
     <div v-if="!hasProduct()" class="checkout-message">
       <h3>O Carrinho está vazio...</h3>
       <router-link to="./">Voltar para a lista de produtos</router-link>
@@ -17,7 +25,8 @@
     <h3 class="total" v-if="hasProduct()">
       Total: AOA {{ totalPrice() }},00
     </h3>
-  </div>
+   </div>
+</div>
 </template>
 
 <script>
@@ -44,6 +53,38 @@ export default {
     },
     remove(index) {
       this.removeProduct(index);
+    },
+    encomendar()
+    {
+        var produtos = [];
+        var carrinhoActual =  this.getProductsInCart;
+
+        for(var i = 0; i < this.getProductsInCart.length; i++)
+        {
+            var inserir = true;
+            for(var j = 0; j < produtos.length; j++)
+            {
+                if(produtos[j].IdProduto == carrinhoActual[i].Id)
+                {
+                    produtos[j].Quantidade++;
+                    inserir = false;
+                    break;
+                }
+            }
+
+            if(inserir)
+            {
+                var obj = {
+                    IdVenda:12,
+                    IdProduto: carrinhoActual[i].Id,
+                    Preco: carrinhoActual[i].Preco,
+                    Quantidade: 1
+                };
+
+                produtos.push(obj);
+            }
+        }
+        console.log(produtos);
     },
   },
 };

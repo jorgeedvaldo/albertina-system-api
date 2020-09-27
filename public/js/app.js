@@ -2081,6 +2081,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
  //import func from '../../../vue-temp/vue-editor-bridge';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2096,6 +2105,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     remove: function remove(index) {
       this.removeProduct(index);
+    },
+    encomendar: function encomendar() {
+      var produtos = [];
+      var carrinhoActual = this.getProductsInCart;
+
+      for (var i = 0; i < this.getProductsInCart.length; i++) {
+        var inserir = true;
+
+        for (var j = 0; j < produtos.length; j++) {
+          if (produtos[j].IdProduto == carrinhoActual[i].Id) {
+            produtos[j].Quantidade++;
+            inserir = false;
+            break;
+          }
+        }
+
+        if (inserir) {
+          var obj = {
+            IdVenda: 12,
+            IdProduto: carrinhoActual[i].Id,
+            Preco: carrinhoActual[i].Preco,
+            Quantidade: 1
+          };
+          produtos.push(obj);
+        }
+      }
+
+      console.log(produtos);
     }
   })
 });
@@ -4977,78 +5014,106 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "checkout-box" }, [
-    _c(
-      "ul",
-      { staticClass: "checkout-list" },
-      [
-        _c(
-          "transition-group",
-          { attrs: { name: "fade" } },
-          _vm._l(_vm.getProductsInCart, function(product, index) {
-            return _c(
-              "li",
-              { key: index, staticClass: "checkout-product text-left" },
-              [
-                _c("img", {
-                  staticClass: "product-image",
-                  attrs: {
-                    src: "images/Produtos/" + product.UrlImagem,
-                    onerror:
-                      "this.onerror=null; this.src='images/Produtos/product.jpg'",
-                    alt: ""
-                  }
-                }),
-                _vm._v(" "),
-                _c("h3", { staticClass: "product-name" }, [
-                  _vm._v(_vm._s(product.Nome))
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "product-price" }, [
-                  _vm._v("AOA " + _vm._s(product.Preco) + ",00 ")
-                ]),
-                _vm._v(" "),
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "checkout-box" }, [
+      _c(
+        "ul",
+        { staticClass: "checkout-list" },
+        [
+          _c(
+            "transition-group",
+            { attrs: { name: "fade" } },
+            _vm._l(_vm.getProductsInCart, function(product, index) {
+              return _c(
+                "li",
+                { key: index, staticClass: "checkout-product text-left" },
+                [
+                  _c("img", {
+                    staticClass: "product-image",
+                    attrs: {
+                      src: "images/Produtos/" + product.UrlImagem,
+                      onerror:
+                        "this.onerror=null; this.src='images/Produtos/product.jpg'",
+                      alt: ""
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("h3", { staticClass: "product-name" }, [
+                    _vm._v(_vm._s(product.Nome))
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "product-price" }, [
+                    _vm._v("AOA " + _vm._s(product.Preco) + ",00 ")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "product-remove",
+                      on: {
+                        click: function($event) {
+                          return _vm.remove(index)
+                        }
+                      }
+                    },
+                    [_vm._v("X")]
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.hasProduct()
+        ? _c(
+            "div",
+            { staticClass: "form-group row justify-content-center mt-3" },
+            [
+              _c("div", { staticClass: "col-md-12" }, [
                 _c(
                   "button",
                   {
-                    staticClass: "product-remove",
+                    staticClass: "btn btn-primary btn-block btn-bg",
+                    attrs: { type: "submit" },
                     on: {
                       click: function($event) {
-                        return _vm.remove(index)
+                        return _vm.encomendar()
                       }
                     }
                   },
-                  [_vm._v("X")]
+                  [_vm._v("\n                Confirmar\n            ")]
                 )
-              ]
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.hasProduct()
+        ? _c(
+            "div",
+            { staticClass: "checkout-message" },
+            [
+              _c("h3", [_vm._v("O Carrinho está vazio...")]),
+              _vm._v(" "),
+              _c("router-link", { attrs: { to: "./" } }, [
+                _vm._v("Voltar para a lista de produtos")
+              ])
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.hasProduct()
+        ? _c("h3", { staticClass: "total" }, [
+            _vm._v(
+              "\n      Total: AOA " + _vm._s(_vm.totalPrice()) + ",00\n    "
             )
-          }),
-          0
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    !_vm.hasProduct()
-      ? _c(
-          "div",
-          { staticClass: "checkout-message" },
-          [
-            _c("h3", [_vm._v("O Carrinho está vazio...")]),
-            _vm._v(" "),
-            _c("router-link", { attrs: { to: "./" } }, [
-              _vm._v("Voltar para a lista de produtos")
-            ])
-          ],
-          1
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.hasProduct()
-      ? _c("h3", { staticClass: "total" }, [
-          _vm._v("\n    Total: AOA " + _vm._s(_vm.totalPrice()) + ",00\n  ")
-        ])
-      : _vm._e()
+          ])
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []

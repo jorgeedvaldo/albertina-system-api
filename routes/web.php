@@ -25,4 +25,3 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/edit','EditController@index')->name('edit');
 Route::post('/edit','EditController@update')->name('edit-save');;
-//Route::match(['GET','POST'],'/edit/save','EditController@update')->name('edit-save');
