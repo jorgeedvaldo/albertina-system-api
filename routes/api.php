@@ -34,6 +34,7 @@ Route::put('/morada/{id}', 'Api\MoradaController@update');
 Route::delete('/morada/{id}', 'Api\MoradaController@delete');
 
 Route::get('/pedidos', 'Api\PedidoController@get');
+Route::post('/pedido', 'Api\PedidoController@store');
 Route::get('/pedidoprodutos', 'Api\PedidoProdutoController@get');
 
 Route::get('/sincronizacao', 'Api\SincronizacaoController@get');

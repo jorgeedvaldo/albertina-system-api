@@ -31,6 +31,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import axios from 'axios';
 //import func from '../../../vue-temp/vue-editor-bridge';
 
 export default {
@@ -75,16 +76,37 @@ export default {
             if(inserir)
             {
                 var obj = {
-                    IdVenda:12,
+                    IdVenda: 0,
                     IdProduto: carrinhoActual[i].Id,
                     Preco: carrinhoActual[i].Preco,
                     Quantidade: 1
                 };
-
                 produtos.push(obj);
             }
         }
-        console.log(produtos);
+
+        axios.post('/api/pedido', {
+                'Total': '100',
+                'ValorPago': '100',
+                'Telefone1': '123',
+                'Telefone2': '123',
+                'Email': 'b@gmail.com',
+                'Localizacao': 'Luanda',
+                'AoChegar': 'Ligue',
+                'IdCliente': '14',
+                'OrigemCliente': 'Remota'
+            })
+            .then(function (response) {
+                for(var k = 0; k<produtos.length; k++)
+                {
+                    produtos[k].IdVenda = response.data;
+                }
+                console.log(produtos);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
     },
   },
 };

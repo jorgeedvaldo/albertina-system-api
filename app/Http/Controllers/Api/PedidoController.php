@@ -17,7 +17,7 @@ class PedidoController extends Controller
     {
         $pedido = new Pedido();
         $pedido->DataHoraFeita = now();
-        $pedido->HoraEntrega = $request->HoraEntrega;
+        //$pedido->HoraEntrega = $request->HoraEntrega;
         $pedido->Estado = 'Não Atendido';
         $pedido->Total = $request->Total;
         $pedido->ValorPago = $request->ValorPago;
@@ -29,6 +29,7 @@ class PedidoController extends Controller
         $pedido->IdCliente = $request->IdCliente;
         $pedido->OrigemCliente = $request->OrigemCliente;
         $pedido->save();
+        return $pedido['id'];
 
     }
 
