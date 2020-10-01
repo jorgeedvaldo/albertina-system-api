@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pedido;
+use App\Models\Sincronizacao;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
@@ -29,6 +30,13 @@ class PedidoController extends Controller
         $pedido->IdCliente = $request->IdCliente;
         $pedido->OrigemCliente = $request->OrigemCliente;
         $pedido->save();
+
+        Sincronizacao::create([
+            'Id'=>  $pedido['id'],
+            'Tabela' => 'Pedido',
+            'Accao' => 'Inserir',
+        ]);
+
         return $pedido['id'];
 
     }
