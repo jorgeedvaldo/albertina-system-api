@@ -2005,17 +2005,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     listOfProducts: _ListOfProducts__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['getAllProducts'])),
-  created: function created() {
-    var _this = this;
-
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('./api/produtos').then(function (response) {
-      return _this.produtos = response.data;
-    });
-  },
   data: function data() {
     return {
       produtos: []
     };
+  },
+  created: function created() {
+    var myinstance = this;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('./api/produtos').then(function (response) {
+      myinstance.produtos = response.data;
+    });
   }
 });
 

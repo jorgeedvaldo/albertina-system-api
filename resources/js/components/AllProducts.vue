@@ -1,5 +1,5 @@
 <template>
- <listOfProducts :products="produtos"/>
+    <listOfProducts :products="produtos"/>
 </template>
 
 <script>
@@ -16,14 +16,17 @@ export default {
       'getAllProducts',
     ]),
   },
-   created () {
-    axios.get('./api/produtos')
-    .then(response => this.produtos = response.data);
-  },
   data () {
     return {
       produtos: []
     }
+  },
+   created () {
+    var myinstance = this;
+    axios.get('./api/produtos')
+    .then(function(response){
+        myinstance.produtos = response.data;
+    });
   },
 };
 </script>
