@@ -2092,11 +2092,66 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
- //import func from '../../../vue-temp/vue-editor-bridge';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['getProductsInCart'])),
+  data: {
+    EncomendaAoChegar: 'Ligue',
+    EncomendaTelefone1: "",
+    EncomendaTelefone2: "",
+    EncomendaLocalizacao: ""
+  },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['removeProduct'])), {}, {
     hasProduct: function hasProduct() {
       return this.getProductsInCart.length > 0;
@@ -2109,9 +2164,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     remove: function remove(index) {
       this.removeProduct(index);
     },
+    PedidoProduto: function PedidoProduto(a, b) {
+      var myinstance = this;
+
+      if (a.length > b) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/pedidoproduto', a[b]).then(function (response) {
+          b++;
+          myinstance.PedidoProduto(a, b);
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
+    },
     encomendar: function encomendar() {
       var produtos = [];
       var carrinhoActual = this.getProductsInCart;
+      var myinstance = this;
 
       for (var i = 0; i < this.getProductsInCart.length; i++) {
         var inserir = true;
@@ -2126,31 +2194,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (inserir) {
           var obj = {
-            IdVenda: 0,
+            IdPedido: 0,
             IdProduto: carrinhoActual[i].Id,
             Preco: carrinhoActual[i].Preco,
             Quantidade: 1
           };
           produtos.push(obj);
-          console.log(produtos);
         }
       }
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/pedido', {
-        'Total': '100',
+        'Total': this.totalPrice(),
         'ValorPago': '100',
-        'Telefone1': '123',
-        'Telefone2': '123',
+        'Telefone1': this.EncomendaTelefone1,
+        'Telefone2': this.EncomendaTelefone2,
         'Email': 'b@gmail.com',
-        'Localizacao': 'Luanda',
-        'AoChegar': 'Ligue',
+        'Localizacao': this.EncomendaLocalizacao,
+        'AoChegar': this.EncomendaAoChegar,
         'IdCliente': '14',
         'OrigemCliente': 'Remota'
       }).then(function (response) {
         for (var k = 0; k < produtos.length; k++) {
-          produtos[k].IdVenda = response.data;
+          produtos[k].IdPedido = response.data;
         }
 
+        myinstance.PedidoProduto(produtos, 0);
         console.log(produtos);
       })["catch"](function (error) {
         console.log(error);
@@ -5093,23 +5161,7 @@ var render = function() {
         ? _c(
             "div",
             { staticClass: "form-group row justify-content-center mt-3" },
-            [
-              _c("div", { staticClass: "col-md-12" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary btn-block btn-bg",
-                    attrs: { type: "submit" },
-                    on: {
-                      click: function($event) {
-                        return _vm.encomendar()
-                      }
-                    }
-                  },
-                  [_vm._v("\n                Confirmar\n            ")]
-                )
-              ])
-            ]
+            [_vm._m(0)]
           )
         : _vm._e(),
       _vm._v(" "),
@@ -5135,10 +5187,278 @@ var render = function() {
             )
           ])
         : _vm._e()
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "exampleModal",
+          tabindex: "-1",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.encomendar($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-md-4 col-form-label text-md-right",
+                        attrs: { for: "AoChegar" }
+                      },
+                      [_vm._v("Ao Chegar *")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.EncomendaAoChegar,
+                              expression: "EncomendaAoChegar"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "AoChegar", id: "AoChegar" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.EncomendaAoChegar = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "Ligue" } }, [
+                            _vm._v("Ligue")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "Bate a Porta" } }, [
+                            _vm._v("Bate a Porta")
+                          ])
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-goup row mb-3" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-md-4 col-form-label text-md-right",
+                        attrs: { for: "Telefone1" }
+                      },
+                      [_vm._v("Telefone Principal *")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.EncomendaTelefone1,
+                            expression: "EncomendaTelefone1"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "Telefone1",
+                          type: "number",
+                          name: "Telefone1",
+                          required: ""
+                        },
+                        domProps: { value: _vm.EncomendaTelefone1 },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.EncomendaTelefone1 = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-goup row mb-3" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-md-4 col-form-label text-md-right",
+                        attrs: { for: "Telefone2" }
+                      },
+                      [_vm._v("Telefone Alternativo")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.EncomendaTelefone2,
+                            expression: "EncomendaTelefone2"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "Telefone2",
+                          type: "number",
+                          name: "Telefone2"
+                        },
+                        domProps: { value: _vm.EncomendaTelefone2 },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.EncomendaTelefone2 = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-form-label",
+                        attrs: { for: "Localizacao" }
+                      },
+                      [_vm._v("Localização Detalhada")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.EncomendaLocalizacao,
+                          expression: "EncomendaLocalizacao"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "Localizacao" },
+                      domProps: { value: _vm.EncomendaLocalizacao },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.EncomendaLocalizacao = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(2)
+              ]
+            )
+          ])
+        ])
+      ]
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary btn-block btn-lg",
+          attrs: {
+            type: "submit",
+            "data-toggle": "modal",
+            "data-target": "#exampleModal"
+          }
+        },
+        [_vm._v("\n                Confirmar\n            ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Detalhes do Pedido")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Efectuar Pedido")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Fechar")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

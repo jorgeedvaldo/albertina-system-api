@@ -13,7 +13,7 @@
     </ul>
     <div class="form-group row justify-content-center mt-3" v-if="hasProduct()">
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary btn-block btn-bg" @click="encomendar()">
+            <button type="submit" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#exampleModal" >
                 Confirmar
             </button>
         </div>
@@ -26,13 +26,62 @@
       Total: AOA {{ totalPrice() }},00
     </h3>
    </div>
+   <!--MODAL FORM-->
+   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Detalhes do Pedido</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form v-on:submit.prevent="encomendar">
+        <div class="modal-body">
+            <div class="form-group row">
+                <label for="AoChegar" class="col-md-4 col-form-label text-md-right">Ao Chegar *</label>
+                <div class="col-md-6">
+                    <select name="AoChegar" v-model="EncomendaAoChegar" id="AoChegar" class="form-control">
+                        <option value="Ligue">Ligue</option>
+                        <option value="Bate a Porta">Bate a Porta</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-goup row mb-3">
+                <label for="Telefone1" class="col-md-4 col-form-label text-md-right">Telefone Principal *</label>
+
+                <div class="col-md-6">
+                    <input id="Telefone1" v-model="EncomendaTelefone1" type="number" class="form-control" name="Telefone1" required>
+                </div>
+            </div>
+
+            <div class="form-goup row mb-3">
+                <label for="Telefone2" class="col-md-4 col-form-label text-md-right">Telefone Alternativo</label>
+
+                <div class="col-md-6">
+                    <input id="Telefone2" v-model="EncomendaTelefone2" type="number" class="form-control" name="Telefone2">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Localizacao" class="col-form-label">Localização Detalhada</label>
+                <textarea class="form-control" v-model="EncomendaLocalizacao" id="Localizacao"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Efectuar Pedido</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+        </form>
+        </div>
+    </div>
+    </div>
 </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
-//import func from '../../../vue-temp/vue-editor-bridge';
 
 export default {
   computed: {
@@ -40,6 +89,13 @@ export default {
       'getProductsInCart',
     ]),
   },
+
+  data: {
+        EncomendaAoChegar: 'Ligue',
+        EncomendaTelefone1: "",
+        EncomendaTelefone2: "",
+        EncomendaLocalizacao: ""
+    },
 
   methods: {
     ...mapActions([
@@ -55,10 +111,26 @@ export default {
     remove(index) {
       this.removeProduct(index);
     },
+
+    PedidoProduto(a, b){
+        var myinstance = this;
+        if(a.length > b){
+            axios.post('/api/pedidoproduto', a[b])
+                .then(function (response) {
+                    b++;
+                    myinstance.PedidoProduto(a, b);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    },
+
     encomendar()
     {
         var produtos = [];
         var carrinhoActual =  this.getProductsInCart;
+        var myinstance = this;
 
         for(var i = 0; i < this.getProductsInCart.length; i++)
         {
@@ -76,7 +148,7 @@ export default {
             if(inserir)
             {
                 var obj = {
-                    IdVenda: 0,
+                    IdPedido: 0,
                     IdProduto: carrinhoActual[i].Id,
                     Preco: carrinhoActual[i].Preco,
                     Quantidade: 1
@@ -86,21 +158,22 @@ export default {
         }
 
         axios.post('/api/pedido', {
-                'Total': '100',
+                'Total': this.totalPrice(),
                 'ValorPago': '100',
-                'Telefone1': '123',
-                'Telefone2': '123',
+                'Telefone1': this.EncomendaTelefone1,
+                'Telefone2': this.EncomendaTelefone2,
                 'Email': 'b@gmail.com',
-                'Localizacao': 'Luanda',
-                'AoChegar': 'Ligue',
+                'Localizacao': this.EncomendaLocalizacao,
+                'AoChegar': this.EncomendaAoChegar,
                 'IdCliente': '14',
                 'OrigemCliente': 'Remota'
             })
             .then(function (response) {
                 for(var k = 0; k<produtos.length; k++)
                 {
-                    produtos[k].IdVenda = response.data;
+                    produtos[k].IdPedido = response.data;
                 }
+                myinstance.PedidoProduto(produtos, 0);
                 console.log(produtos);
             })
             .catch(function (error) {
@@ -108,7 +181,7 @@ export default {
             });
 
     },
-  },
+  }
 };
 </script>
 

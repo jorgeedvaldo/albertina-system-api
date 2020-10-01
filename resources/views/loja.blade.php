@@ -62,5 +62,6 @@
     </footer>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/all.js') }}"></script>
 </body>
 </html>
