@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Pedido;
 use App\Models\Sincronizacao;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\ClienteController;
 
 class PedidoController extends Controller
 {
@@ -27,8 +28,8 @@ class PedidoController extends Controller
         $pedido->Email = $request->Email;
         $pedido->Localizacao = $request->Localizacao;
         $pedido->AoChegar = $request->AoChegar;
-        $pedido->IdCliente = $request->IdCliente;
-        $pedido->OrigemCliente = $request->OrigemCliente;
+        $pedido->IdCliente = $this->DadosLogado()['Id'];
+        $pedido->OrigemCliente = $this->DadosLogado()['Origem'];
         $pedido->save();
 
         Sincronizacao::create([
@@ -44,5 +45,18 @@ class PedidoController extends Controller
     public function getById($id)
     {
         return Pedido::where('id', $id)->get();
+    }
+
+    function DadosLogado()
+    {
+        $cliente = new ClienteController();
+        if(auth()->check())
+        {
+            return $cliente->getByNomeUsuario(auth()->username)[0];
+        }
+        else
+        {
+            return $cliente->getById(1)[0];
+        }
     }
 }

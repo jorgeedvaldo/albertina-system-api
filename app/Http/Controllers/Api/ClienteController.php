@@ -71,7 +71,7 @@ class ClienteController extends Controller
 
     public function getById($id)
     {
-        return Cliente::where('id', $id)->get();
+        return Cliente::with('Morada')->where('Id', $id)->get();
     }
 
     public function getByNomeUsuario($NomeUsuario)
