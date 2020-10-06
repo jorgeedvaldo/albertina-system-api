@@ -28,8 +28,8 @@ class PedidoController extends Controller
         $pedido->Email = $request->Email;
         $pedido->Localizacao = $request->Localizacao;
         $pedido->AoChegar = $request->AoChegar;
-        $pedido->IdCliente = $this->DadosLogado()['Id'];
-        $pedido->OrigemCliente = $this->DadosLogado()['Origem'];
+        $pedido->IdCliente = $request->IdCliente;
+        $pedido->OrigemCliente = $request->OrigemCliente;
         $pedido->save();
 
         Sincronizacao::create([
@@ -45,18 +45,5 @@ class PedidoController extends Controller
     public function getById($id)
     {
         return Pedido::where('id', $id)->get();
-    }
-
-    function DadosLogado()
-    {
-        $cliente = new ClienteController();
-        if(auth()->check())
-        {
-            return $cliente->getByNomeUsuario(auth()->username)[0];
-        }
-        else
-        {
-            return $cliente->getById(1)[0];
-        }
     }
 }

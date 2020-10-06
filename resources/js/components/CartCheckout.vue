@@ -165,8 +165,8 @@ export default {
                 'Email': 'b@gmail.com',
                 'Localizacao': this.EncomendaLocalizacao,
                 'AoChegar': this.EncomendaAoChegar,
-                'IdCliente': '14',
-                'OrigemCliente': 'Remota'
+                'IdCliente': this.$clienteId,
+                'OrigemCliente': this.$clienteOrigem
             })
             .then(function (response) {
                 for(var k = 0; k<produtos.length; k++)

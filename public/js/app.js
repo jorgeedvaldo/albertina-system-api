@@ -2210,8 +2210,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'Email': 'b@gmail.com',
         'Localizacao': this.EncomendaLocalizacao,
         'AoChegar': this.EncomendaAoChegar,
-        'IdCliente': '14',
-        'OrigemCliente': 'Remota'
+        'IdCliente': this.$clienteId,
+        'OrigemCliente': this.$clienteOrigem
       }).then(function (response) {
         for (var k = 0; k < produtos.length; k++) {
           produtos[k].IdPedido = response.data;
@@ -22511,6 +22511,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$clienteId = document.querySelector("meta[name='clienteId']").getAttribute('content');
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$clienteOrigem = document.querySelector("meta[name='clienteOrigem']").getAttribute('content');
 /* eslint-disable no-new */
 
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({

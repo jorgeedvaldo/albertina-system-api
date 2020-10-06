@@ -6,6 +6,8 @@ import router from './router';
 import store from './store';
 
 Vue.config.productionTip = false;
+Vue.prototype.$clienteId = document.querySelector("meta[name='clienteId']").getAttribute('content');
+Vue.prototype.$clienteOrigem = document.querySelector("meta[name='clienteOrigem']").getAttribute('content');
 
 /* eslint-disable no-new */
 new Vue({
