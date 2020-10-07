@@ -91,7 +91,7 @@ class RegisterController extends Controller
         Sincronizacao::create([
             'Id'=> $IdCliente,
             'Tabela' => 'Cliente',
-            'Accao' => 'Inserir',
+            'Accao' => 'INSERT',
         ]);
 
         return User::create([
