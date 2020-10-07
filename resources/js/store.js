@@ -168,6 +168,9 @@ export default new Vuex.Store({
     SHOW_POPUP_CART: (state) => {
       state.showPopupCart = !state.showPopupCart;
     },
+    CLEAR_CART: (state) => {
+        state.cartProducts = [];
+    },
   },
 
   actions: {
@@ -185,6 +188,9 @@ export default new Vuex.Store({
     },
     showOrHiddenPopupCart: (context) => {
       context.commit('SHOW_POPUP_CART');
+    },
+    clearCart: (context) => {
+      context.commit('CLEAR_CART');
     },
   },
 });
