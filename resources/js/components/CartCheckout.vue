@@ -69,13 +69,34 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Efectuar Pedido</button>
+            <input type="submit" id="BtnEfectuarPedido" class="btn btn-primary" value="Solicitar Pedido"/>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
         </div>
         </form>
         </div>
     </div>
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sucesso</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>Pedido solicitado com sucesso...</h4>
+      </div>
+      <div class="modal-footer">
+        <router-link to="./" class="btn btn-secondary" data-dismiss="modal">Voltar para os Produtos</router-link>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 </template>
 
@@ -100,6 +121,7 @@ export default {
   methods: {
     ...mapActions([
       'removeProduct',
+      'clearCart',
     ]),
     hasProduct() {
       return this.getProductsInCart.length > 0;
@@ -110,6 +132,10 @@ export default {
     },
     remove(index) {
       this.removeProduct(index);
+    },
+
+    limpar(){
+        this.clearCart();
     },
 
     PedidoProduto(a, b){
@@ -128,6 +154,8 @@ export default {
 
     encomendar()
     {
+        document.getElementById('BtnEfectuarPedido').value = 'Carregando...';
+        document.getElementById('BtnEfectuarPedido').disabled = true;
         var produtos = [];
         var carrinhoActual =  this.getProductsInCart;
         var myinstance = this;
@@ -175,6 +203,10 @@ export default {
                 }
                 myinstance.PedidoProduto(produtos, 0);
                 console.log(produtos);
+
+                myinstance.limpar();
+                $('#exampleModal').modal('hide');
+                $('#exampleModal2').modal('show');
             })
             .catch(function (error) {
                 console.log(error);
