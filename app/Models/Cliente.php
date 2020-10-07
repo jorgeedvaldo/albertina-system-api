@@ -17,4 +17,9 @@ class Cliente extends Model
     {
         return $this->belongsTo('App\Models\Morada', 'IdMorada', 'Id');
     }
+
+    public function pedidos()
+    {
+        return $this->hasMany('App\Models\Pedido', 'IdCliente', 'Id');
+    }
 }
