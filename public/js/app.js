@@ -2141,6 +2141,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2151,7 +2172,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     EncomendaTelefone2: "",
     EncomendaLocalizacao: ""
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['removeProduct'])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['removeProduct', 'clearCart'])), {}, {
     hasProduct: function hasProduct() {
       return this.getProductsInCart.length > 0;
     },
@@ -2162,6 +2183,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     remove: function remove(index) {
       this.removeProduct(index);
+    },
+    limpar: function limpar() {
+      this.clearCart();
     },
     PedidoProduto: function PedidoProduto(a, b) {
       var myinstance = this;
@@ -2176,6 +2200,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     encomendar: function encomendar() {
+      document.getElementById('BtnEfectuarPedido').value = 'Carregando...';
+      document.getElementById('BtnEfectuarPedido').disabled = true;
       var produtos = [];
       var carrinhoActual = this.getProductsInCart;
       var myinstance = this;
@@ -2219,6 +2245,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         myinstance.PedidoProduto(produtos, 0);
         console.log(produtos);
+        myinstance.limpar();
+        $('#exampleModal').modal('hide');
+        $('#exampleModal2').modal('show');
       })["catch"](function (error) {
         console.log(error);
       });
@@ -5388,6 +5417,44 @@ var render = function() {
           ])
         ])
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "exampleModal2",
+          tabindex: "-1",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-dialog-centered" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _vm._m(4),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "modal-footer" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { to: "./", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Voltar para os Produtos")]
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ]
     )
   ])
 }
@@ -5441,11 +5508,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Efectuar Pedido")]
-      ),
+      _c("input", {
+        staticClass: "btn btn-primary",
+        attrs: {
+          type: "submit",
+          id: "BtnEfectuarPedido",
+          value: "Solicitar Pedido"
+        }
+      }),
       _vm._v(" "),
       _c(
         "button",
@@ -5455,6 +5525,39 @@ var staticRenderFns = [
         },
         [_vm._v("Fechar")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Sucesso")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("h4", [_vm._v("Pedido solicitado com sucesso...")])
     ])
   }
 ]
@@ -23682,6 +23785,9 @@ axios.get('./api/produtos').then(function (response) {
     },
     SHOW_POPUP_CART: function SHOW_POPUP_CART(state) {
       state.showPopupCart = !state.showPopupCart;
+    },
+    CLEAR_CART: function CLEAR_CART(state) {
+      state.cartProducts = [];
     }
   },
   actions: {
@@ -23699,6 +23805,9 @@ axios.get('./api/produtos').then(function (response) {
     },
     showOrHiddenPopupCart: function showOrHiddenPopupCart(context) {
       context.commit('SHOW_POPUP_CART');
+    },
+    clearCart: function clearCart(context) {
+      context.commit('CLEAR_CART');
     }
   }
 }));
