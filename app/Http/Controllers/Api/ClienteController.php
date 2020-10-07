@@ -78,4 +78,9 @@ class ClienteController extends Controller
     {
         return Cliente::with('Morada')->where('NomeUsuario', $NomeUsuario)->get();
     }
+
+    public function getWithPedido($id)
+    {
+        return Cliente::with('pedidos')->where('Id', $id)->get();
+    }
 }
