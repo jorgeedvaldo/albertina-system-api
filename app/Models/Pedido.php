@@ -8,4 +8,9 @@ class Pedido extends Model
 {
     protected $table = 'Pedido';
     public $timestamps = false;
+
+    public function pedidoprodutos()
+    {
+        return $this->hasMany('App\Models\PedidoProduto', 'IdPedido', 'Id');
+    }
 }
