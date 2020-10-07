@@ -35,7 +35,7 @@ class PedidoController extends Controller
         Sincronizacao::create([
             'Id'=>  $pedido['id'],
             'Tabela' => 'Pedido',
-            'Accao' => 'Inserir',
+            'Accao' => 'INSERT',
         ]);
 
         return $pedido['id'];
@@ -44,6 +44,14 @@ class PedidoController extends Controller
 
     public function getById($id)
     {
-        return Pedido::where('id', $id)->get();
+        return Pedido::with('pedidoprodutos')->where('id', $id)->get();
+    }
+
+    public function getByIdCliente($id)
+    {
+        return Pedido::with('pedidoprodutos')
+                        ->where('IdCliente', $id)
+                        ->orderByRaw('Id DESC')
+                        ->get();
     }
 }
