@@ -40,7 +40,12 @@ Route::get('/pedido/{id}', 'Api\PedidoController@getById');
 Route::post('/pedido', 'Api\PedidoController@store');
 Route::get('/pedidos/cliente/{id}', 'Api\PedidoController@getByIdCliente');
 
+Route::get('/pedido/atender/{id}', 'Api\PedidoController@Atender');
+Route::get('/pedido/cancelar/{id}', 'Api\PedidoController@Cancelar');
+Route::get('/pedido/entregar/{id}', 'Api\PedidoController@Entregar');
+
 Route::get('/pedidoprodutos', 'Api\PedidoProdutoController@get');
 Route::post('/pedidoproduto', 'Api\PedidoProdutoController@store');
 
 Route::get('/sincronizacao', 'Api\SincronizacaoController@get');
+Route::get('/sincronizacao/delete/{id}', 'Api\SincronizacaoController@delete');
