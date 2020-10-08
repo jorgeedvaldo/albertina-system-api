@@ -18,4 +18,10 @@ class SincronizacaoController extends Controller
     {
         return Sincronizacao::where('id', $id)->get();
     }
+
+    public function delete($id)
+    {
+        Sincronizacao::where('id', $id)->delete();
+        return 'Apagado com sucesso';
+    }
 }
