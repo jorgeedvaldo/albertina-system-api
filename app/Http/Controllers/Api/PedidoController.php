@@ -54,4 +54,31 @@ class PedidoController extends Controller
                         ->orderByRaw('Id DESC')
                         ->get();
     }
+
+    public function Atender($id)
+    {
+        Pedido::where('Id', $id)
+        ->update([
+            'Estado' => 'Em Atendimento'
+            ]);
+            return Pedido::where('id', $id)->get();
+    }
+
+    public function Cancelar($id)
+    {
+        Pedido::where('Id', $id)
+        ->update([
+            'Estado' => 'Cancelado'
+            ]);
+            return Pedido::where('id', $id)->get();
+    }
+
+    public function Entregar($id)
+    {
+        Pedido::where('Id', $id)
+        ->update([
+            'Estado' => 'Entregue'
+            ]);
+            return Pedido::where('id', $id)->get();
+    }
 }
