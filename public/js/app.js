@@ -1949,6 +1949,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5029,6 +5040,8 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
       _c("transition", { attrs: { name: "leave" } }, [_c("router-view")], 1)
     ],
     1
@@ -5045,6 +5058,51 @@ var staticRenderFns = [
         _vm._v(" Sair da Loja")
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "section",
+      {
+        staticClass: "hero-wrap hero-wrap-2 mb-5",
+        staticStyle: { "background-image": "url('images/bg_4.jpg')" },
+        attrs: { "data-stellar-background-ratio": "0.5" }
+      },
+      [
+        _c("div", { staticClass: "overlay" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "container" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "row no-gutters slider-text align-items-center justify-content-center"
+            },
+            [
+              _c("div", { staticClass: "col-md-9 ftco-animate text-center" }, [
+                _c("h1", { staticClass: "mb-2 bread" }, [_vm._v("Loja")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "breadcrumbs" }, [
+                  _c("span", { staticClass: "mr-2" }, [
+                    _c("a", { attrs: { href: "/" } }, [
+                      _vm._v("Home "),
+                      _c("i", { staticClass: "ion-ios-arrow-forward" })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("span", [
+                    _vm._v("Loja "),
+                    _c("i", { staticClass: "ion-ios-arrow-forward" })
+                  ])
+                ])
+              ])
+            ]
+          )
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
