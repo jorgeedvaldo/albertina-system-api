@@ -14,6 +14,26 @@
 </section>
 <div class="container">
     <div class="row justify-content-center">
+        <div class="col-md-2">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url('/pedidos')}}">Todas</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url('/pedidos/estado/2')}}">Não Atendidos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url('/pedidos/estado/3')}}">Em Atendimento</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/pedidos/estado/4')}}">Entregue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/pedidos/estado/1')}}">Cancelados</a>
+                </li>
+              </ul>
+        </div>
+
         @if(isset($isSaved))
             <div class="col-md-8 mb-3">
                 <div class="alert alert-success mt-3 mb-3">Pedido Cancelado com sucesso.</div>
@@ -46,7 +66,7 @@
 
             @if( count($DadosEncomenda) == 0)
                 <div class="col-md-12 m-5 p-5">
-                    <h1>Você não Solicitou Nenhum até Agora...</h1>
+                    <h1>Não Existe Nenhuma até Agora...</h1>
                 </div>
             @endif
         </div>
