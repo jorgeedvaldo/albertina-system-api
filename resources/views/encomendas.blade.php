@@ -34,12 +34,11 @@
               </ul>
         </div>
 
-        @if(isset($isSaved))
-            <div class="col-md-8 mb-3">
-                <div class="alert alert-success mt-3 mb-3">Pedido Cancelado com sucesso.</div>
-            </div>
-        @endif
+
         <div class="col-md-8">
+            @if(isset($isSaved))
+                <div class="alert alert-success mt-3 mb-3">Pedido Cancelado com sucesso.</div>
+            @endif
             @foreach($DadosEncomenda as $encomenda)
                 <div class="card mb-3">
                     <div class="card-header">
