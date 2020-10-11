@@ -65,12 +65,13 @@
             </div>
             <div class="form-group">
                 <label for="Localizacao" class="col-form-label">Localização Detalhada</label>
-                <textarea class="form-control" v-model="EncomendaLocalizacao" id="Localizacao"></textarea>
+                <textarea class="form-control"  v-model="EncomendaLocalizacao" id="Localizacao"> </textarea>
+                <a href="#" class="btn btn-primary mt-2" @click="locatorButtonPressed">Obter Localizção Actual</a>
             </div>
         </div>
         <div class="modal-footer">
             <input type="submit" id="BtnEfectuarPedido" class="btn btn-primary" value="Solicitar Pedido"/>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button id="BtnObterLocalizacao" type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
 
         </div>
         </form>
@@ -105,6 +106,10 @@ import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
 
 export default {
+    created() {
+    document.getElementById('AoChegar').value = 'Ligue';
+  },
+
   computed: {
     ...mapGetters([
       'getProductsInCart',
@@ -213,6 +218,41 @@ export default {
             });
 
     },
+
+    getStreetAddressFrom(lat, long) {
+      var mytoken = 'pk.e0ddfd5792614741567a5a1f63e24e02';
+      var myinstance = this;
+      axios.get('https://us1.locationiq.com/v1/reverse.php?key=pk.e0ddfd5792614741567a5a1f63e24e02&format=json&lat=' + lat + '&lon=' + long)
+            .then(function (response) {
+              console.log(response.data);
+              myinstance.EncomendaLocalizacao = response.data.display_name;
+              document.getElementById('Localizacao').value = myinstance.EncomendaLocalizacao;
+              document.getElementById('BtnObterLocalizacao').value = 'Obter Localizção Actual';
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    },
+
+    locatorButtonPressed() {
+        document.getElementById('BtnObterLocalizacao').value = 'Carregando...';
+        var myinstance = this;
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
+                myinstance.getStreetAddressFrom(position.coords.latitude, position.coords.longitude);
+            },
+            error => {
+                console.log(error.message);
+            },
+        )
+    },
+
+    inicial(){
+
+    },
+
   }
 };
 </script>
