@@ -2173,9 +2173,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  created: function created() {
+    document.getElementById('AoChegar').value = 'Ligue';
+  },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['getProductsInCart'])),
   data: {
     EncomendaAoChegar: 'Ligue',
@@ -2262,7 +2266,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function (error) {
         console.log(error);
       });
-    }
+    },
+    getStreetAddressFrom: function getStreetAddressFrom(lat, _long) {
+      var mytoken = 'pk.e0ddfd5792614741567a5a1f63e24e02';
+      var myinstance = this;
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('https://us1.locationiq.com/v1/reverse.php?key=pk.e0ddfd5792614741567a5a1f63e24e02&format=json&lat=' + lat + '&lon=' + _long).then(function (response) {
+        console.log(response.data);
+        myinstance.EncomendaLocalizacao = response.data.display_name;
+        document.getElementById('Localizacao').value = myinstance.EncomendaLocalizacao;
+        document.getElementById('BtnObterLocalizacao').value = 'Obter Localizção Actual';
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    locatorButtonPressed: function locatorButtonPressed() {
+      document.getElementById('BtnObterLocalizacao').value = 'Carregando...';
+      var myinstance = this;
+      navigator.geolocation.getCurrentPosition(function (position) {
+        console.log(position.coords.latitude);
+        console.log(position.coords.longitude);
+        myinstance.getStreetAddressFrom(position.coords.latitude, position.coords.longitude);
+      }, function (error) {
+        console.log(error.message);
+      });
+    },
+    inicial: function inicial() {}
   })
 });
 
@@ -5465,7 +5493,17 @@ var render = function() {
                           _vm.EncomendaLocalizacao = $event.target.value
                         }
                       }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-primary mt-2",
+                        attrs: { href: "#" },
+                        on: { click: _vm.locatorButtonPressed }
+                      },
+                      [_vm._v("Obter Localizção Actual")]
+                    )
                   ])
                 ]),
                 _vm._v(" "),
@@ -5579,7 +5617,11 @@ var staticRenderFns = [
         "button",
         {
           staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
+          attrs: {
+            id: "BtnObterLocalizacao",
+            type: "button",
+            "data-dismiss": "modal"
+          }
         },
         [_vm._v("Fechar")]
       )
