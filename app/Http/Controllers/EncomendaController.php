@@ -53,6 +53,60 @@ class EncomendaController extends Controller
 
     public function getByEstado($estado)
     {
+        $clienteController = new ClienteController();
+        $pedidoController = new PedidoController();
+        $produtoController = new ProdutoController();
+        $EstadoActual = $estado;
 
+        $ClienteActual = $clienteController->getByNomeUsuario(auth()->user()->username)[0];
+
+        if($estado == 1)
+        {
+            $DadosEncomenda = Pedido::with('pedidoprodutos')
+                            ->where([
+                                ['IdCliente', '=', $ClienteActual['Id']],
+                                ['Estado', '=', 'Cancelado'],
+                            ])
+                            ->orderByRaw('Id DESC')
+                            ->get();
+            return view('encomendas', compact('DadosEncomenda', 'produtoController', 'EstadoActual'));
+        }
+        else if($estado == 2)
+        {
+            $DadosEncomenda = Pedido::with('pedidoprodutos')
+                            ->where([
+                                ['IdCliente', '=', $ClienteActual['Id']],
+                                ['Estado', '=', 'Não Atendido'],
+                            ])
+                            ->orderByRaw('Id DESC')
+                            ->get();
+            return view('encomendas', compact('DadosEncomenda', 'produtoController', 'EstadoActual'));
+        }
+        else if($estado == 3)
+        {
+            $DadosEncomenda = Pedido::with('pedidoprodutos')
+                            ->where([
+                                ['IdCliente', '=', $ClienteActual['Id']],
+                                ['Estado', '=', 'Em Atendimento'],
+                            ])
+                            ->orderByRaw('Id DESC')
+                            ->get();
+            return view('encomendas', compact('DadosEncomenda', 'produtoController', 'EstadoActual'));
+        }
+        else if($estado == 4)
+        {
+            $DadosEncomenda = Pedido::with('pedidoprodutos')
+                            ->where([
+                                ['IdCliente', '=', $ClienteActual['Id']],
+                                ['Estado', '=', 'Entregue'],
+                            ])
+                            ->orderByRaw('Id DESC')
+                            ->get();
+            return view('encomendas', compact('DadosEncomenda', 'produtoController', 'EstadoActual'));
+        }
+        else
+        {
+            return redirect()->route('pedidos');
+        }
     }
 }
