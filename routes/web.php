@@ -28,4 +28,4 @@ Route::post('/edit','EditController@update')->name('edit-save');
 
 Route::get('/pedidos', 'EncomendaController@index')->name('pedidos');
 Route::post('/pedidos', 'EncomendaController@CancelarEncomenda')->name('pedido-cancelar');
-//Route::get('/pedidos/estado/{estado}', 'EncomendaController@getByEstado');
+Route::get('/pedidos/estado/{estado}', 'EncomendaController@getByEstado');
